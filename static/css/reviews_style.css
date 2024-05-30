@@ -1,0 +1,166 @@
+.activa_link_header {
+  color: red;
+}
+* {
+  padding: 0px;
+  margin: 0px;
+  text-decoration: none;
+}
+body {
+  background-color: #303439;
+  min-height: 100vh;
+}
+.publication_new_review {
+    text-align: center;
+    border: 0px;
+    border-radius: 30px;
+    color: white;
+    padding: 10px;
+    background-color: red;
+    font-weight: bold;
+    width: 301px;
+    font-size: 20px;
+    margin: 55px auto 0;
+  }
+.publication_new_review:hover {
+background-color: white;
+color: red;
+}
+
+.container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+}
+
+h1 {
+  color: white;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.name_company {
+  font-size: 40px;
+  color: white;
+  font-weight: bold;
+}
+
+.name_company_special_word {
+  color: red;
+}
+
+/* Nav menu style */
+nav {
+  padding: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 15px;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  font-family: Arial, sans-serif;
+  font-size: 30px;
+  padding: 15px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+a:hover {
+  background-color: #555;
+}
+
+/* Bootstrap */
+.link-muted {
+  color: #aaa;
+}
+
+.link-muted:hover {
+  color: #1266f1;
+}
+
+/* Отзывы */
+.review-item {
+  flex-direction: row;
+}
+
+.review-avatar {
+  width: 65px;
+  height: 65px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+h5 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 768px) {
+  .review-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .review-avatar {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 15px;
+  }
+
+  h5 {
+    font-size: 16px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .review-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .review-avatar {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+  }
+
+  h5 {
+    font-size: 14px;
+  }
+
+  p {
+    font-size: 12px;
+  }
+
+  .card-body {
+    padding: 15px;
+  }
+}

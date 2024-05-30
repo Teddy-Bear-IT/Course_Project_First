@@ -1,0 +1,105 @@
+body {
+  background-color: #303439;
+}
+
+.main_text_in_author {
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  padding: 10px 20px;
+  margin: 20px;
+  background-color: #007bff;
+  border-radius: 10px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.main_text_in_author:hover {
+  background-color: #0056b3;
+  color: #fff;
+}
+
+.login-button {
+  padding: 10px 30px;
+  font-size: 18px;
+  border-radius: 10px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.login-button:hover {
+  background-color: #0056b3;
+  color: #fff;
+}
+
+.vh-100 {
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+}
+
+.h-custom {
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .main_text_in_author {
+    font-size: 20px;
+    padding: 8px 16px;
+    margin: 10px;
+  }
+
+  .login-button {
+    font-size: 16px;
+    padding: 8px 20px;
+  }
+
+  .h1 {
+    font-size: 28px;
+  }
+
+  .h5 {
+    font-size: 16px;
+  }
+
+  .img-fluid {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .vh-100 {
+    min-height: 50vh;
+  }
+}
+
+@media (max-width: 576px) {
+  .main_text_in_author {
+    font-size: 16px;
+    padding: 6px 12px;
+    margin: 5px;
+  }
+
+  .login-button {
+    font-size: 14px;
+    padding: 6px 16px;
+  }
+
+  .h1 {
+    font-size: 24px;
+  }
+
+  .h5 {
+    font-size: 14px;
+  }
+
+  .img-fluid {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .vh-100 {
+    min-height: 40vh;
+  }
+}

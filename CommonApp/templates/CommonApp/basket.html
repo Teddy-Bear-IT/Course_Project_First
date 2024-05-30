@@ -1,0 +1,108 @@
+{% extends "CommonApp/base.html" %}
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static '/css/base_style.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<!--Окно в случае успешной операции-->
+    {% if successful_purchase %}
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script>
+                    Swal.fire({
+                          icon: "success",
+                          title: "Заказ оформлен!",
+                          text: "Скоро вам позвонит наш оператор для уточнения вопросов и подписания договора",
+                      });
+                </script>
+    {% endif %}
+
+<section>
+  <div class="container py-4">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-12">
+        <p>
+          <span class="h2" style="color:white;">Каталог товаров</span>
+        </p>
+        {% for product in basket_products %}
+          <div class="card mb-4">
+            <div class="card-body p-4">
+              <div class="row align-items-center">
+                <div class="col-6 col-md-2 text-center">
+                  <img src="{{product.product.image.url}}" class="img-fluid" alt="Generic placeholder image" />
+                </div>
+                <div class="col-6 col-md-2 text-center">
+                  <div>
+                    <p class="small text-muted mb-2">Название</p>
+                    <p class="lead fw-normal">{{product.product.name}}</p>
+                  </div>
+                </div>
+                <div class="col-6 col-md-2 text-center">
+                  <div>
+                    <p class="small text-muted mb-2">Цена</p>
+                    <p class="lead fw-normal mb-0">
+                      <i class="fas fa-circle me-2" style="color: #fdd8d2;"></i>
+                      {{product.product.price}}(шт.)
+                    </p>
+                  </div>
+                </div>
+                <div class="col-6 col-md-2 text-center">
+                  <div>
+                    <p class="small text-muted mb-2">Количество</p>
+                    <p class="lead fw-normal mb-0">
+                      <i class="fas fa-circle me-2" style="color: #fdd8d2;"></i>
+                      {{product.count}}
+                    </p>
+                  </div>
+                </div>
+                <div class="col-12 col-md-2 text-center mt-3 mt-md-0">
+                  <div class="d-flex flex-row flex-md-column justify-content-center">
+                    <a href="{% url 'CommonApp:plus_count_product_in_basket' product.product.id %}">
+                      <input type="button" class="btn btn-success mx-1 mb-1 mb-md-0" value="+" />
+                    </a>
+                    <a href="{% url 'CommonApp:minus_count_product_in_basket' product.product.id %}">
+                      <input type="button" class="btn btn-warning mx-1 mb-1 mb-md-0" value="-" />
+                    </a>
+                    <a href="{% url 'CommonApp:del_product_in_basket' product.product.id %}">
+                      <input type="button" class="btn btn-danger mx-1 mb-1 mb-md-0" value="X" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+        <div class="card mb-5">
+          <div class="card-body p-4">
+            <div class="d-flex justify-content-end">
+              <p class="mb-0 d-flex align-items-center">
+                {% if basket_products %}
+                  <span class="small text-muted me-2">Итоговая сумма заказа:</span>
+                  <span class="lead fw-normal">{{res_sum}}</span>
+                {% else %}
+                  <span class="small text-muted me-2">Корзина пуста</span>
+                {% endif %}
+              </p>
+            </div>
+          </div>
+        </div>
+
+
+        {% if basket_products %}
+            <div class="d-flex justify-content-end">
+          <a href="{% url 'CommonApp:go_purchase' %}">
+            <button type="button" class="btn btn-primary btn-lg mb-4">
+              Купить товары
+            </button>
+          </a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

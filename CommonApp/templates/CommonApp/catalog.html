@@ -1,0 +1,52 @@
+{% extends "CommonApp/base.html" %}
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static '/css/catalog_style.css' %}" />
+
+
+{% endblock %}
+    {% block spec_item_in_catalog %}
+         <li class="nav-item"><a href="{% url 'CommonApp:basket' %}" class="nav-link">Корзина</a></li>
+    {% endblock %}
+{%  block content %}
+
+<!--Окно в случае успешной операции-->
+    {% if successful_doing %}
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script>
+                    Swal.fire({
+                          icon: "success",
+                          title: "Товар добавлен в корзину",
+                          text: "Для оформления заказа перейдите в корзину!Для изменения количества услуг товара перейдите в корзину!",
+                      });
+                </script>
+    {% endif %}
+
+
+
+<div class="container my-5">
+  <h1 class="text-center mb-5" style="color:white;">Каталог товаров</h1>
+  <div class="d-flex flex-wrap justify-content-center" style="margin-bottom:100px;">
+    {% for card in cards_products %}
+      <div class="flex-item m-2 my-2 product-item">
+        <div class="card product-card">
+          <img
+            src="{{card.image.url}}"
+            class="card-img-top product-image"
+            alt="{{ card.alt}}"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{card.name}}</h5>
+            <p class="card-text">{{card.description}}</p>
+            <p class="card-text"><strong>Цена: {{card.price}}</strong></p>
+            {% if user.is_authenticated %}
+              <a href="{% url 'CommonApp:add_item_in_catalog' card.id %}" class="btn btn-primary add_new_item_in_catalog">Добавить в корзину</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

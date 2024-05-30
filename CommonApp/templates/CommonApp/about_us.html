@@ -1,0 +1,116 @@
+{% extends "CommonApp/base.html" %}
+{% load static %}
+
+{% block links %}
+<!-- Подключение CSS файла bootstrap 5 -->
+    <link rel="stylesheet" href="{% static '/css/about_us_style.css' %}" />
+{% endblock  %}
+
+{% block content %}
+<!--Окно в случае удачной отправки обращения-->
+    {% if is_send_feedback %}
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script>
+                    Swal.fire({
+                          icon: "success",
+                          title: "Обращение отправлено!",
+                          text: "Мы скоро с вами свяжемся!",
+                      });
+                </script>
+    {% endif %}
+<!--Окно в случае неудачной отправки обращения-->
+    {% if is_not_send_feedback %}
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script>
+                    Swal.fire({
+                          icon: "error",
+                          title: "Обращение  не отправлено:(",
+                          text: "Проверьте корректность данных и попробуйте заполнить форму еще раз",
+                      });
+                </script>
+    {% endif %}
+ <div class="responsive-container-block bigContainer">
+      <div class="responsive-container-block Container bottomContainer">
+        <div class="allText bottomText">
+          <p class="text-blk headingText">О нас</p>
+          <p class="text-blk subHeadingText">Код[Миши]</p>
+          <p class="text-blk description">
+            Наша компания является лидером в области разработки ИТ-продуктов и
+            решений для бизнеса. Мы специализируемся на создании инновационных
+            программных продуктов, облачных решений и информационной
+            безопасности. Наш опытный коллектив специалистов обладает высоким
+            уровнем компетенций в различных областях ИТ, что позволяет нам
+            предлагать клиентам эффективные и индивидуальные решения,
+            соответствующие их потребностям и целям. Мы стремимся к совершенству
+            в каждом проекте, гарантируя высокое качество и надежность наших
+            продуктов. Обращаясь к нам, вы выбираете надежного партнера в
+            развитии вашего бизнеса, готового помочь вам достичь успеха и
+            оптимизировать вашу ИТ инфраструктуру.
+            <br><br>Адрес: г. Москва, ул. Программистов, 10
+           <br>Телефон: 8 (231) 231-23-12
+          <br>Email: info@kodmishi.ru
+          <br>График работы: Пн-Пт 09:00 - 18:00
+          </p>
+              {% if user.is_authenticated %}
+                <button
+                  type="button"
+                  class="publication_new_review d-flex justify-content-center explore"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Обратная связь
+                </button>
+              {% endif %}
+
+            <!-- Модальное окно -->
+            <div
+              class="modal fade"
+              id="exampleModal"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                      Обратная связь
+                    </h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Закрыть"
+                    ></button>
+                  </div>
+                  <form action="{% url 'CommonApp:about_us' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                      {{feed_back_form.email}}
+                      {{feed_back_form.user_request_data}}
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Закрыть
+                      </button>
+                      <button type="submit" class="btn btn-primary">
+                        Обратиться
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="videoContainer">
+            <img class="dotsImg image-block" src="{% static 'img/about_us_icon.png' %}" alt="" >
+<!--             <img class="dotsImg image-block" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/cw3.svg" />-->
+
+        </div>
+      </div>
+    </div>
+{% endblock %}

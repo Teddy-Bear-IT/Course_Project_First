@@ -1,0 +1,126 @@
+{% extends 'CommonApp/base.html'  %}
+{% load static %}
+
+{% block links %}
+<!-- Подключение CSS файла bootstrap 5 -->
+    <link rel="stylesheet" href="{% static '/css/reviews_style.css' %}" />
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+
+    <!-- Кнопка-триггер модального окна -->
+    {% if user.is_authenticated %}
+        <button
+      type="button"
+      class="publication_new_review d-flex justify-content-center"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      Оставить новый отзыв
+    </button>
+    {% endif %}
+
+    <!-- Модальное окно -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Напишите свой отзыв ниже
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Закрыть"
+            ></button>
+          </div>
+          <form method="post" action="{%    url 'CommonApp:reviews' %}">
+              {% csrf_token %}
+              <div class="modal-body">
+                  {{ review_form.description }}
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Закрыть
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Оставить отзыв
+                </button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+<section>
+  <div class="container my-5 py-5 text-dark">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-11 col-lg-9 col-xl-7">
+        {% for review in reviews %}
+          <div class="d-flex flex-start mb-4 review-item">
+            <img
+              class="rounded-circle shadow-1-strong me-3 review-avatar"
+              src="{{review.user_id.image_user.url}}"
+              alt="avatar"
+              width="65"
+              height="65"
+            />
+            <div class="card w-100">
+              <div class="card-body p-4">
+                <div class="">
+                  <h5>{{review.user_id.first_name}} {{review.user_id.last_name}}</h5>
+                  <p>{{review.description}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+<!--    <section>-->
+<!--      <div class="container my-5 py-5 text-dark">-->
+<!--        <div class="row d-flex justify-content-center">-->
+<!--          <div class="col-md-11 col-lg-9 col-xl-7">-->
+<!--              {% for review in reviews %}-->
+<!--                <div class="d-flex flex-start mb-4">-->
+<!--              <img-->
+<!--                class="rounded-circle shadow-1-strong me-3"-->
+<!--                src="{{review.user_id.image_user.url}}"-->
+<!--                alt="avatar"-->
+<!--                width="65"-->
+<!--                height="65"-->
+<!--              />-->
+<!--              <div class="card w-100">-->
+<!--                <div class="card-body p-4">-->
+<!--                  <div class="">-->
+<!--                    <h5>{{review.user_id.first_name}} {{review.user_id.last_name}} </h5>-->
+<!--                    <p>-->
+<!--                        {{review.description}}-->
+<!--                    </p>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--              {% endfor %}-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </section>-->
+{% endblock  %}

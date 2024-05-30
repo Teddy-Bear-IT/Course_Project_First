@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+      integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="{% static '/css/login_user_style.css' %}">
+  </head>
+  <body>
+    {% if error_post_form %}
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script>
+                    Swal.fire({
+                          icon: "error",
+                          title: "Ошибка авторизации",
+                          text: "Проверьте корректность данных",
+                      });
+                </script>
+    {% endif %}
+    <a href="{% url 'CommonApp:index' %}" class="main_text_in_author">
+  ← Вернуться на главную страницу
+</a>
+<section class="vh-100 container align-items-center d-flex">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img
+          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+          class="img-fluid"
+          alt="Sample image"
+        />
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form method="POST" action="{% url 'CommonApp:login' %}">
+          {% csrf_token %}
+          <div class="divider d-flex align-items-center my-4">
+            <p class="text-center fw-bold mx-3 mb-0 h1 text-white">Авторизация</p>
+          </div>
+
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            {{ login_form.username }}
+            <label class="form-label text-white h5" for="form3Example3">User name</label>
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-3">
+            {{ login_form.password }}
+            <label class="form-label text-white h5" for="form3Example4">Password</label>
+          </div>
+
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button
+              type="submit"
+              class="btn btn-primary btn-lg login-button"
+            >
+              Войти
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+  </body>
+</html>

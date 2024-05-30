@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Интерфейс работника</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'css/worker_style.css' %}">
+</head>
+<body>
+<a href="{% url 'CommonApp:index' %}" class="btn-back">
+  ← Вернуться на главную страницу
+</a>
+<div class="container-fluid my-5">
+  <h1 class="text-center text-md-start">Список заказов</h1>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered">
+      <thead class="table-primary">
+        <tr>
+          <th>ID</th>
+          <th>Клиент</th>
+          <th>Дата</th>
+          <th>Статус</th>
+          <th>Действия</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in user_orders %}
+          <form action="{% url 'CommonApp:update_status_order_in_worker' order.id %}" method="post">
+            {% csrf_token %}
+            <tr>
+              <td>{{order.number_order}}</td>
+              <td>{{order.user.last_name}} {{order.user.first_name}}</td>
+              <td>{{order.date}}</td>
+              <td>
+                {{form_status_order.name_status}}
+              </td>
+              <td>
+                <button class="btn btn-primary btn-sm" type="submit">Сохранить</button>
+              </td>
+            </tr>
+          </form>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+  <script>
+    function updateStatus(orderId) {
+      const statusSelect = document.getElementById(`status-${orderId}`);
+      const newStatus = statusSelect.value;
+      // Здесь вы можете добавить код для сохранения нового статуса заказа
+      console.log(`Статус заказа ${orderId} изменен на "${newStatus}"`);
+    }
+  </script>
+</body>
+</html>

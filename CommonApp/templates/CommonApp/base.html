@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+      integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="{% static '/css/base_style.css' %}">
+    {% block links %}
+
+    {% endblock %}
+</head>
+<body>
+
+<header class="navbar navbar-expand-lg navbar-light ">
+  <div class="container">
+    <a href="{% url 'CommonApp:index' %}" class="navbar-brand name_company_special_word">Код<span class="">[Миши]</span></a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" onclick="toggleMenu()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a href="{% url 'CommonApp:index' %}" class="nav-link active">Главная</a></li>
+        <li class="nav-item"><a href="{% url 'CommonApp:about_us' %}" class="nav-link">О нас</a></li>
+        <li class="nav-item"><a href="{% url 'CommonApp:catalog' %}" class="nav-link">Каталог</a></li>
+        <li class="nav-item"><a href="{% url 'CommonApp:reviews' %}" class="nav-link">Отзывы</a></li>
+        {% if not user.is_authenticated %}
+        <li class="nav-item"><a href="{% url 'CommonApp:login' %}" class="nav-link">Авторизация</a></li>
+        <li class="nav-item"><a href="{% url 'CommonApp:register' %}" class="nav-link">Регистрация</a></li>
+        {% endif %}
+
+        {% if is_worker_now %}
+        <li class="nav-item"><a href="{% url 'CommonApp:working' %}" class="nav-link">Работа</a></li>
+        {% endif %}
+
+          {% if user.is_authenticated %}
+            <li class="nav-item"><a href="{% url 'CommonApp:personal_profile' %}" class="nav-link">Личный кабинет</a></li>
+          {% endif %}
+          {% if user.is_authenticated %}
+            {% block spec_item_in_catalog %}
+
+            {% endblock %}
+          {% endif %}
+      </ul>
+    </div>
+  </div>
+</header>
+
+<script>
+  function toggleMenu() {
+    var navbarNav = document.getElementById('navbarNav');
+    if (navbarNav.classList.contains('show')) {
+      navbarNav.classList.remove('show');
+    } else {
+      navbarNav.classList.add('show');
+    }
+  }
+</script>
+
+    {% block content %}
+    {% endblock %}
+<footer class="footer bg-dark text-white mt-auto py-3">
+  <div class="container_footer">
+    <div class="row row-cols-1 row-cols-md-3 justify-content-between align-items-center">
+      <div class="footer-section col text-start mb-3 mb-md-0">
+        &copy;Код<span class="text-danger">[Миши]</span>
+      </div>
+      <div class="footer-section col text-center mb-3 mb-md-0">
+        Все права защищены мной
+      </div>
+      <div class="footer-section col text-end">
+        Телефон: 8 (231) 231-23-12
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

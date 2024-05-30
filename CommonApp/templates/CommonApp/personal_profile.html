@@ -1,0 +1,90 @@
+{% extends 'CommonApp/base.html' %}
+
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static '/css/personal_profile_style.css' %}" />
+
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+  <div class="profile-header">
+    {% if user.image_user %}
+      <img src="{{ user.image_user.url }}" alt="Профиль"/>
+    {% else %}
+        <img src="/media/user_profile_photo/photo_user_have_not_icon.jpg" alt="Профиль"/>
+    {% endif %}
+    <div class="profile-header-info">
+      <h2>{{ user.last_name }} {{ user.first_name }}</h2>
+      <a href="{% url 'CommonApp:go_exit' %}" style="color:black">Выйти</a>
+    </div>
+  </div>
+  <div class="profile-info">
+    <h3>Личная информация</h3>
+    <p>ФИ: {{ user.last_name }} {{ user.first_name }}</p>
+    <p>Email: {{ user.email }}</p>
+  </div>
+  <div class="profile-info">
+    <h3>История заказов</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Дата</th>
+          <th>Номер заказа</th>
+          <th>Сумма</th>
+          <th>Статус</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+        <tr>
+          <td>{{ order.date }}</td>
+          <td>{{ order.number_order }}</td>
+          <td>{{ order.summa_order }} руб.</td>
+          <td>{{ order.status_order.name_status }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<!--<div class="profile-container">-->
+<!--      <div class="profile-header">-->
+<!--        <h2>{{user.last_name}} {{user.first_name}}</h2>-->
+<!--        <a href="{%  url 'CommonApp:go_exit' %}" style="color:black">Выйти</a>-->
+
+<!--      </div>-->
+
+<!--      <div class="profile-info">-->
+<!--        <h3>Личная информация</h3>-->
+<!--        <p>ФИ: {{user.last_name}} {{user.first_name}}</p>-->
+<!--        <p>Email: {{user.email}}</p>-->
+<!--      </div>-->
+
+<!--      <div class="profile-info">-->
+<!--        <h3>История заказов</h3>-->
+<!--        <table class="table">-->
+<!--          <thead>-->
+<!--            <tr>-->
+<!--              <th>Дата</th>-->
+<!--              <th>Номер заказа</th>-->
+<!--              <th>Сумма</th>-->
+<!--              <th>Статус</th>-->
+<!--            </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--            {% for order in orders      %}-->
+<!--                <tr>-->
+<!--                  <td>{{order.date}}</td>-->
+<!--                  <td>{{order.number_order}}</td>-->
+<!--                  <td>{{order.summa_order}} руб. </td>-->
+<!--                  <td>{{order.status_order.name_status}}</td>-->
+<!--                </tr>-->
+<!--            {% endfor %}-->
+
+<!--          </tbody>-->
+<!--        </table>-->
+<!--      </div>-->
+<!--    </div>-->
+{% endblock %}

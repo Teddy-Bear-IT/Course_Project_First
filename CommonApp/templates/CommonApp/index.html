@@ -1,0 +1,55 @@
+{% extends "CommonApp/base.html" %}
+{% load static %}
+{% block links %}
+    <link rel="stylesheet" href="{% static '/css/index_style.css' %}" />
+{% endblock %}
+{% block content %}
+<!--<div class="container">-->
+<!--      <main>-->
+<!--        <h1 class="main_h1">Оказание ИТ услуг на заказ!</h1>-->
+<!--        <p class="main_p">-->
+<!--          Добро пожаловать на наш сайт по оказанию ИТ услуг! Мы специализируемся-->
+<!--          на предоставлении широкого спектра ИТ услуг для вашего бизнеса.<br /><br />-->
+<!--          Независимо от того, нужна ли вам разработка программного обеспечения,-->
+<!--          облачные решения, информационная безопасность или поддержка ИТ-->
+<!--          инфраструктуры, мы готовы помочь вам достичь ваших целей!-->
+<!--        </p>-->
+<!--      </main>-->
+<!--    </div>-->
+<div class="custom-container">
+    <main class="text-center my-4">
+      <h1 class="main_h1 text-center my-4">Оказание ИТ услуг на заказ!</h1>
+      <p class="main_p mx-auto">
+        Добро пожаловать на наш сайт по оказанию ИТ услуг! Мы специализируемся
+        на предоставлении широкого спектра ИТ услуг для вашего бизнеса.<br /><br />
+        Независимо от того, нужна ли вам разработка программного обеспечения,
+        облачные решения, информационная безопасность или поддержка ИТ
+        инфраструктуры, мы готовы помочь вам достичь ваших целей!
+      </p>
+    </main>
+  </div>
+<div class="custom-container">
+  <article class="article_for_why_choose_us">
+    <h2 class="h2_why_choose_us">Почему выбрать именно нас?</h2>
+
+    <div class="article_why_choose_us_items">
+      {% for card in cards_context_why_choose_us %}
+        <div class="item_why_choose_us">
+        <img
+          src="{{card.image.url}}"
+          alt="Картинка"
+          class="img_why_choose_us"
+        />
+        <h3 class="h3_why_choose_us">{{card.name}}</h3>
+        <p class="p_why_choose_us">
+          {{card.description}}
+        </p>
+      </div>
+      {% endfor %}
+
+    </div>
+  </article>
+</div>
+
+
+{% endblock %}
